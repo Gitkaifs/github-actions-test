@@ -1,11 +1,19 @@
-import express from 'express'
-import { Routes } from './user.routes.js'
-import connectDB from './db.js'
-const app = express()
-const PORT=3000
-connectDB();
-app.use(express.json())
-app.use('/user',Routes)
-app.listen(PORT,()=>{
-    console.log(`server is started on ${PORT}`)
-})
+import app from './app.js';
+import connectDB from './db.js';
+
+const PORT = 3000;
+
+const startServer = async () => {
+  try {
+    await connectDB();
+
+    app.listen(PORT, () => {
+      console.log(`Server started on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error('Failed to start server:', error);
+    process.exit(1);
+  }
+};
+
+startServer();

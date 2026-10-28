@@ -11,6 +11,23 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    services:
+      mongodb:
+        image: mongo:7
+        env:
+          MONGO_INITDB_ROOT_USERNAME: kaif
+          MONGO_INITDB_ROOT_PASSWORD: kaif
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --quiet -u kaif -p kaif --authenticationDatabase admin --eval 'db.adminCommand({ ping: 1 })'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      MONGO_URI: mongodb://kaif:kaif@localhost:27017/crud_practice_test?authSource=admin
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4

@@ -29,7 +29,7 @@ export const createUser = async(req,res,next)=>{
     try {
         const{name, age} = req.body
         const user = await createUser1(name,age)
-        return res.status(200).json({message:"users created successfully"}) 
+        return res.status(201).json({message:"users created successfully"}) 
     } catch (error) {
         next(error)
     }
